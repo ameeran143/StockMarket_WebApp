@@ -5,9 +5,11 @@ import pandas as pd
 from PIL import Image
 from datetime import datetime
 
+st.set_page_config(layout="wide")
+
 # Adding a Title and image to the Webapp
 st.write("""
-# Stock Market WebApp 
+# Stock Market Web Application 
 **Visually display data on a stock and a machine learning model to predict future prices.**
 """)
 
@@ -26,7 +28,8 @@ def user_input():
     start_date = st.sidebar.text_input("Start Date", '2000-01-01')
     end_date = st.sidebar.text_input("End Date", datetime.date(datetime.now()))
     stock_symbol = st.sidebar.text_input("Stock Symbol", 'AMZN')
-    return start_date, end_date, stock_symbol
+    data_type = st.sidebar.selectbox("Data to Display", ["Volume", "Opening Price", "Closing Price"])
+    return start_date, end_date, stock_symbol, data_type
 
 
 # Creating a function to get Company name
@@ -48,8 +51,18 @@ def get_data(symbol, start, end):
     return df
 
 
+# Creating a function to select on sidebar which type of information they would like to view
+
+
 # Getting User input
-start, end, symbol = user_input()
+start, end, symbol, data_type = user_input()
+
+if data_type == "Closing Price":
+    data = "Close"
+elif data_type == "Opening Price":
+    data = "Open"
+else:
+    data = "Volume"
 
 # Getting the Data
 df = get_data(symbol, start, end)
@@ -57,6 +70,10 @@ df = get_data(symbol, start, end)
 # Getting the Company name
 company_name = get_company_name(symbol.upper())
 
-# Dsiplaying information
-st.header(company_name + " Close Price\n")
-st.line_chart(df['Close'])
+# Displaying information
+st.header(company_name + " " + data_type + "\n")
+st.line_chart(df[data])
+
+# Displaying Statistics about the Data
+st.header("Analysis of Data")
+st.write(df.describe())
