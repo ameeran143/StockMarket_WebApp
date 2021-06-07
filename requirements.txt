@@ -1,10 +1,10 @@
-install pillow==8.2.0
-install pandas==1.2.4
-install streamlit==0.81.1
-install scikit-learn==0.24.2
-install pandas_datareader==0.8.1
-install fbprophet==0.7.1
-install yfinance==0.1.59
-install plotly==4.14.3
-install requests==2.25.1
+pillow==8.2.0
+pandas==1.2.4
+streamlit==0.81.1
+scikit-learn==0.24.2
+pandas_datareader==0.8.1
+fbprophet==0.7.1
+yfinance==0.1.59
+plotly==4.14.3
+requests==2.25.1
 
